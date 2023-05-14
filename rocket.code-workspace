@@ -4,7 +4,9 @@
 			"path": "."
 		}
 	],
-	"settings": {},
+	"settings": {
+		"DockerRun.DisableAutoGenerateConfig": true
+	},
 	"extensions": {
 		"recommendations": [
 			"github.copilot"
