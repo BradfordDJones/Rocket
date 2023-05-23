@@ -30,7 +30,7 @@ class planet {
 		ctx.stroke();
 		ctx.fill()
 
-		drawbackground(ctx);
+//		drawbackground(ctx);
 	}
 
 	/*
