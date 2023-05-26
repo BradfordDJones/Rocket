@@ -8,7 +8,8 @@ info = document.getElementById("_info");
 ctx = canvas.getContext("2d");
 
 class planet {
-	constructor(_fillStyle, _strokeStyle, _x, _y, _radius, _lineWidth, _mass, _velX, _velY) {
+	constructor(_name, _fillStyle, _strokeStyle, _x, _y, _radius, _lineWidth, _mass, _velX, _velY) {
+		this._name = _name;
 		this.x = _x;
 		this.y = _y;
 		this.radius = _radius;
@@ -48,11 +49,13 @@ class planet {
 
 	physics(obj2) {
 		if (this !== obj2) {
-			let d = this.getDistance(obj2);
-			let f = (g * this.mass * obj2.mass) / Math.pow(d,2);
-			let ang = this.getAngle(obj2);
-			this.velX += Math.cos(ang*(Math.PI/180)) * f;
-			this.velY += Math.sin(ang*(Math.PI/180)) * f;
+			if (this._name != "sun") {
+				let d = this.getDistance(obj2);
+				let f = (g * this.mass * obj2.mass) / Math.pow(d,2);
+				let ang = this.getAngle(obj2);
+				this.velX += Math.cos(ang*(Math.PI/180)) * f;
+				this.velY += Math.sin(ang*(Math.PI/180)) * f;
+			}
 		}
 	}
 
@@ -74,12 +77,13 @@ class planet {
 let g = 6.0e-5;
 
 let planets = [
-//		new planet("#FFFF00", "#333300",	400, 100, 10, 2, 1100,  0.5,  0.0),
-//		new planet("#0000FF", "#111111",	700, 400, 10, 2, 1100,  0.0,  0.5),
-//		new planet("#00FFFF", "#111111",	400, 700, 10, 2, 1100, -0.5,  0.0),
-//		new planet("#FF0000", "#111111",	100, 400, 10, 2, 1100,  0.0, -0.5)//,
-		new planet( "#FFFF00","#FF0000",	400, 400, 30, 2, 99999,  0.0,  0.0),
+		new planet("ship", 	"#FFFF00", "#333300",	400, 100, 10, 2, 110,  0.7,  0.0),
+		new planet("",		"#0000FF", "#111111",	700, 400, 10, 2, 120,  0.0,  0.6),
+		new planet("",		"#00FFFF", "#111111",	400, 700, 10, 2, 130, -0.7,  0.0),
+		new planet("",		"#FF0000", "#111111",	100, 400, 10, 2, 140,  0.0, -0.8),
+		new planet("sun",	"#FFFF00","#FF0000",	400, 400, 30, 2, 89999,  0.0,  0.0),
 	]
+
 
 
 function step() {
