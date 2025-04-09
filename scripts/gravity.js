@@ -77,24 +77,37 @@ class planet {
 let g = 6.0e-5;
 
 let planets = [
-		new planet("ship", 	"#FFFF00", "#333300",	400, 100, 10, 2, 110,  0.7,  0.0),
-		new planet("",		"#0000FF", "#111111",	700, 400, 10, 2, 120,  0.0,  0.6),
-		new planet("",		"#00FFFF", "#111111",	400, 700, 10, 2, 130, -0.7,  0.0),
-		new planet("",		"#FF0000", "#111111",	100, 400, 10, 2, 140,  0.0, -0.8),
-		new planet("sun",	"#FFFF00","#FF0000",	400, 400, 30, 2, 89999,  0.0,  0.0),
+		new planet("sun",	"Yellow", 	"White",	550, 425, 30, 2, 90000,  0.0,  0.0),
+		new planet("", 		"Green", 	"White",	400, 100, 10, 2, 110,  0.7,  0.0),
+		new planet("",		"Blue", 	"White",	700, 400, 10, 2, 120,  0.0,  0.6),
+		new planet("",		"Red", 		"White",	400, 700, 10, 2, 130, -0.7,  0.0),
+		new planet("",		"Purple", 	"White",	100, 400, 10, 2, 140,  0.0, -0.8),
 	]
-
-
 
 function step() {
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
+	drawConnectingLines();
 	planets.forEach(p => p.draw());
 	planets.forEach(p => p.update());
 	planets.forEach(p => p.move());
 
-
 	window.requestAnimationFrame(step);
+}
+
+function drawConnectingLines() {
+
+	planets.forEach((p) => {
+		if (p._name != "sun") {
+			ctx.lineWidth = 3;
+			ctx.fillStyle = planets[0].fillStyle;
+			ctx.strokeStyle = p.fillStyle;
+			ctx.beginPath();
+			ctx.moveTo(planets[0].x, planets[0].y);
+			ctx.lineTo(p.x, p.y);
+			ctx.stroke();
+		}
+	});
 }
 
 step();
